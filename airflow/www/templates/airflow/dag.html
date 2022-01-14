@@ -153,7 +153,7 @@
                   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="dag_id" value="{{ dag.dag_id }}">
                   <input type="hidden" name="unpause" value="True">
-                  <input type="hidden" name="origin" value="{{ url_for('Airflow.' + dag.default_view, dag_id=dag.dag_id) }}">
+                  <input type="hidden" name="origin" value="{{ url_for('Airflow.' + (current_view or dag.default_view), dag_id=dag.dag_id) }}">
                   <button type="submit" class="dropdown-form-btn">Trigger DAG</button>
                 </form>
               </li>
