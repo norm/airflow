@@ -130,6 +130,13 @@ Previously, a task’s log is dynamically rendered from the `[core] log_filename
 
 A new `log_template` table is introduced to solve this problem. This table is synchronised with the aforementioned config values every time Airflow starts, and a new field `log_template_id` is added to every DAG run to point to the format used by tasks (`NULL` indicates the first ever entry for compatibility).
 
+### `auth_backends` replaces `auth_backend` configuration setting
+
+Previously, only one backend was used to authorize use of the experimental REST API.
+Something about multiple backends separated by newlines.
+Something about the default remaining deny_all.
+
+
 ## Airflow 2.2.3
 
 No breaking changes.
