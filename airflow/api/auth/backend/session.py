@@ -14,17 +14,11 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
 """Session authentication backend"""
 from functools import wraps
 from typing import Any, Callable, Optional, Tuple, TypeVar, Union, cast
 
-from flask import Response, current_app, request
-from flask_appbuilder.const import AUTH_LDAP
-from flask_login import login_user
-from flask import g
-
-from airflow.www.fab_security.sqla.models import User
+from flask import Response, g
 
 CLIENT_AUTH: Optional[Union[Tuple[str, str], Any]] = None
 
@@ -34,23 +28,6 @@ def init_app(_):
 
 
 T = TypeVar("T", bound=Callable)
-
-
-def auth_current_user() -> Optional[User]:
-    """Authenticate and set current user if Authorization header exists"""
-    auth = request.authorization
-    if auth is None or not auth.username or not auth.password:
-        return None
-
-    ab_security_manager = current_app.appbuilder.sm
-    user = None
-    if ab_security_manager.auth_type == AUTH_LDAP:
-        user = ab_security_manager.auth_user_ldap(auth.username, auth.password)
-    if user is None:
-        user = ab_security_manager.auth_user_db(auth.username, auth.password)
-    if user is not None:
-        login_user(user, remember=False)
-    return user
 
 
 def requires_authentication(function: T):
