@@ -53,7 +53,7 @@ def init_api_experimental_auth(app):
     app.api_auth = []
     for backend in auth_backends.split():
         try:
-            auth = import_module(backend)
+            auth = import_module(backend.strip())
             auth.init_app(app)
             app.api_auth.append(auth)
         except ImportError as err:
