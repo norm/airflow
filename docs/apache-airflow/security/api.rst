@@ -27,7 +27,7 @@ deny all requests:
 .. code-block:: ini
 
     [api]
-    auth_backend = airflow.api.auth.backend.deny_all
+    auth_backends = airflow.api.auth.backend.deny_all
 
 .. versionchanged:: 1.10.11
 
