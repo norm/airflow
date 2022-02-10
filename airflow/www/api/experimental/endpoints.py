@@ -45,7 +45,11 @@ def requires_authentication(function: T):
 
     @wraps(function)
     def decorated(*args, **kwargs):
-        return current_app.api_auth.requires_authentication(function)(*args, **kwargs)
+        for auth in current_app.api_auth:
+            response = auth.requires_authentication(function)(*args, **kwargs)
+            if response.status_code == 200:
+                return response
+        return response
 
     return cast(T, decorated)
 
