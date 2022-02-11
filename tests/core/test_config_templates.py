@@ -59,7 +59,6 @@ DEFAULT_TEST_SECTIONS = [
     'core',
     "logging",
     'cli',
-    'api',
     'operators',
     'hive',
     'webserver',
